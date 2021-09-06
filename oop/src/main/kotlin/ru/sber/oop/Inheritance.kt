@@ -15,7 +15,7 @@ open class Room(val name: String, val size: Int) {
 
     open fun load() = monsterGoblin1.getSalutation() + "Nothing much to see here..."
 
-    fun Monster.getSalutation():String{
+    fun Monster.getSalutation(): String {
         return "$name is screams that you must give him your gold and shinies"
     }
 }
@@ -24,7 +24,7 @@ class TownSquare: Room("Town Square",1000){
 
     final override fun load() = "A huge and majestic marketplace with merchants selling a variety of goods"
 
-    override val dangerLevel = super.dangerLevel-3
+    override val dangerLevel = super.dangerLevel - 3
 
 }
 
