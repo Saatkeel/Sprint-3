@@ -83,9 +83,4 @@ internal class HrDepartmentTest {
             HrDepartment.receiveRequest(certificateRequest)
         }
     }
-
-    @AfterEach
-    fun unMockkAll() {
-        unmockkAll()
-    }
 }

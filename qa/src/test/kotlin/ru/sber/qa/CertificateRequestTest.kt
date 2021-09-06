@@ -27,7 +27,7 @@ internal class CertificateRequestTest {
         assertEquals(hrEmployeeNumber, certificate.processedBy)
         assertEquals(certificateRequest, certificate.certificateRequest)
 
-        unmockkAll()
+        unmockkAll()        // тут моки не вынесены потому что для других двух тестов нет смысла мокировать объект
     }
 
     @Test

@@ -39,26 +39,5 @@ internal class ScannerTest {
     fun tearDown() {
         unmockkAll()
     }
-
+        // Моки вынесены в методы after/before тк для каждого из 2 тк надо мокировать Рандом(как я это понимаю)
 }
-/*
-    @Test
-    fun scannerTimeoutException1(){
-        val scanner = mockk<Scanner>()
-        every{scanner.getScanData()} throws ScanTimeoutException()
-        val exception =assertThrows(ScanTimeoutException::class.java){
-            scanner.getScanData()
-        }
-        assertEquals("Таймаут сканирования документа", exception.message)
-
-    }
-    @Test
-    fun returnArrayTest(){
-
-        val scanner = mockk<Scanner>()
-        every{scanner.getScanData()} returns Random.nextBytes(100)
-        scanner.getScanData()
-        verify { scanner.getScanData() }
-        confirmVerified(scanner)
-
-    }*/
