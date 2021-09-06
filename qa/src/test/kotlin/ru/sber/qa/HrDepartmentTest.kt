@@ -19,12 +19,6 @@ internal class HrDepartmentTest {
     private val certificateRequest = mockk<CertificateRequest>()
     private val hrEmployeeNumber = 50L
 
-    @BeforeEach
-    fun setUp() {
-        mockkObject(CertificateType.NDFL)
-        mockkObject(CertificateType.LABOUR_BOOK)
-    }
-
     @Test
     fun receiveRequestDoesNotThrow() {
         HrDepartment.clock = Clock.fixed(
