@@ -1,5 +1,12 @@
 package ru.sber.nio
 
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.io.path.name
+import kotlin.io.path.pathString
+import kotlin.io.path.useLines
+
 /**
  * Реализовать простой аналог утилиты grep с использованием калссов из пакета java.nio.
  */
@@ -16,5 +23,24 @@ class Grep {
      */
     fun find(subString: String) {
 
+        val path = Paths.get("logs")
+        val result = Paths.get("result.txt")
+
+        Files.createFile(result)
+                .toFile()
+                .bufferedWriter()
+                .use { fos ->
+                    Files.walk(path)
+                            .filter { it.toString().endsWith(".log") }
+                            .forEach{ file ->
+                                Paths.get(file.pathString)
+                                        .useLines { line ->
+                                            line.filter { it.contains(subString) }
+                                                .forEach { foundString ->
+                                                    fos.write("${file.name} : ${file.useLines { it.indexOf(foundString) + 1 }} : $foundString")
+                                                    fos.newLine() }
+                                        }
+                            }
+                }
     }
 }
