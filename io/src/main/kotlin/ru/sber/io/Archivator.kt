@@ -21,14 +21,14 @@ class Archivator {
 
         File(fileName)
                 .inputStream()
-                .use { input ->
+                .use { fis ->
             ZipOutputStream(File(zippedFileName).outputStream())
-                    .use { output ->
+                    .use { fos ->
                     val entry = ZipEntry(fileName)
-                    output.putNextEntry(entry)
-                    val buffer = ByteArray(input.available())
-                    input.read(buffer)
-                    output.write(buffer)
+                    fos.putNextEntry(entry)
+                    val buffer = ByteArray(fis.available())
+                    fis.read(buffer)
+                    fos.write(buffer)
             }
         }
     }
@@ -39,15 +39,15 @@ class Archivator {
      */
     fun unzipLogfile(fileName: String = "logfile.zip", unzippedFileName: String = "unzippedLogfile.log") {
         ZipInputStream(File(fileName).inputStream())
-                .use { input ->
+                .use { fis ->
             File(unzippedFileName)
                     .outputStream()
-                    .use { output ->
-                    while (input.nextEntry != null) {
-                        var readInfo = input.read()
+                    .use { fos ->
+                    while (fis.nextEntry != null) {
+                        var readInfo = fis.read()
                         while (readInfo != -1) {
-                            output.write(readInfo)
-                            readInfo = input.read()
+                            fos.write(readInfo)
+                            readInfo = fis.read()
                         }
                     }
             }
