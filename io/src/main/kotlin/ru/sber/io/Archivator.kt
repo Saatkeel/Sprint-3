@@ -1,5 +1,6 @@
 package ru.sber.io
 
+import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.zip.ZipEntry
@@ -18,10 +19,10 @@ class Archivator {
      */
     fun zipLogfile(fileName: String = "logfile.log", zippedFileName: String = "logfile.zip") {
 
-        FileInputStream(fileName)
+        File(fileName)
+                .inputStream()
                 .use { input ->
-            ZipOutputStream(
-                    FileOutputStream(zippedFileName))
+            ZipOutputStream(File(zippedFileName).outputStream())
                     .use { output ->
                     val entry = ZipEntry(fileName)
                     output.putNextEntry(entry)
@@ -37,10 +38,10 @@ class Archivator {
      * Извлечь из архива logfile.zip файл и сохарнить его в том же каталоге с именем unzippedLogfile.log
      */
     fun unzipLogfile(fileName: String = "logfile.zip", unzippedFileName: String = "unzippedLogfile.log") {
-        ZipInputStream(
-                FileInputStream(fileName))
+        ZipInputStream(File(fileName).inputStream())
                 .use { input ->
-            FileOutputStream(unzippedFileName)
+            File(unzippedFileName)
+                    .outputStream()
                     .use { output ->
                     while (input.nextEntry != null) {
                         var readInfo = input.read()
