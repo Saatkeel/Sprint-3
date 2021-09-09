@@ -12,12 +12,23 @@ internal class ArchivatorTest {
     @Test
     fun zipLogfile() {
         archivator.zipLogfile(zippedFileName = "logfile.zip")
-        assertTrue(File("logfile.zip").exists())
+        val file = File("logfile.zip")
+
+        assertTrue(file.exists())
+
+        file.delete()
     }
 
     @Test
     fun unzipLogfile() {
+        val originalFileName = "logfile.zip"
+        archivator.zipLogfile(zippedFileName = originalFileName)
         archivator.unzipLogfile(unzippedFileName = "unzippedLogfile.log")
-        assertTrue(File("unzippedLogfile.log").exists())
+        val file = File("unzippedLogfile.log")
+
+        assertTrue(file.exists())
+
+        file.delete()
+        File(originalFileName).delete()
     }
 }
