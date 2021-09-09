@@ -18,8 +18,11 @@ class Archivator {
      */
     fun zipLogfile(fileName: String = "logfile.log", zippedFileName: String = "logfile.zip") {
 
-        FileInputStream(fileName).use { input ->
-            ZipOutputStream(FileOutputStream(zippedFileName)).use { output ->
+        FileInputStream(fileName)
+                .use { input ->
+            ZipOutputStream(
+                    FileOutputStream(zippedFileName))
+                    .use { output ->
                     val entry = ZipEntry(fileName)
                     output.putNextEntry(entry)
                     val buffer = ByteArray(input.available())
@@ -34,8 +37,11 @@ class Archivator {
      * Извлечь из архива logfile.zip файл и сохарнить его в том же каталоге с именем unzippedLogfile.log
      */
     fun unzipLogfile(fileName: String = "logfile.zip", unzippedFileName: String = "unzippedLogfile.log") {
-        ZipInputStream(FileInputStream(fileName)).use { input ->
-            FileOutputStream(unzippedFileName).use { output ->
+        ZipInputStream(
+                FileInputStream(fileName))
+                .use { input ->
+            FileOutputStream(unzippedFileName)
+                    .use { output ->
                     while (input.nextEntry != null) {
                         var readInfo = input.read()
                         while (readInfo != -1) {
